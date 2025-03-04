@@ -1,0 +1,15 @@
+.table-row:hover {
+  background-color: #ece6ee; /* Background color on hover */
+} 
+
+.table-row {
+  background-color: #ece6ee; /* Background color on hover */
+
+}
+
+.PhoneInputCountry {
+}
+.PhoneInputInput{
+  
+  background: #000 !important;
+}
