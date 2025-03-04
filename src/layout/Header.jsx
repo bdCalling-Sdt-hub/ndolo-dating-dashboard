@@ -23,7 +23,7 @@ import Swal from "sweetalert2";
 import dashboard_welcome_Image from "../../public/Dashboard/Dashboard_welcome.png";
 import User_profile_image from "../../public/Dashboard/User_profile_image.png";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCahngePasswordMutation } from "../redux/features/auth/changePassword";
 import toast, { Toaster } from "react-hot-toast";
 import { useGetProfileQuery } from "../redux/features/profile/profile";
@@ -35,7 +35,7 @@ const Header = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { data: profile } = useGetProfileQuery();
+  const { data: profile, refetch, isLoading: profileLoading } = useGetProfileQuery();
   // console.log(profile?.data?.attributes);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,6 +98,10 @@ const Header = () => {
     setMenuVisible(visible);
   };
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   const menu = (
     <Menu
       className={`transition ease-in-out duration-300 transform ${menuVisible ? "custom-dropdown-menu-visible" : "custom-dropdown-menu"
@@ -139,13 +143,18 @@ const Header = () => {
             <img className="max-w-48 mx-auto" src={dashboard_welcome_Image} alt="" />
           </div> */}
         </div>
-        <Link to={"/dashboard/profile"} className=" lg:col-span-1 flex items-center  md:justify-end sm:flex-row flex-col gap-5  p-5 min-w-96 cursor-pointer">
-          <div className="text-right ">
-            <h3 className="text-2xl font-semibold text-[#430750]">{profile?.data?.attributes?.fullName}</h3>
-            <p className="font-semibold">{profile?.data?.attributes?.role}</p>
-          </div>
-          <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.profileImage ? `${baseUrl}${profile?.data?.attributes?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
-        </Link>
+        {
+          profileLoading ? <div className="flex items-center mr-5 text-blue-500">loading...</div> :
+            <Link to={"/dashboard/profile"} className=" lg:col-span-1 flex items-center  md:justify-end sm:flex-row flex-col gap-5  p-5 min-w-96 cursor-pointer">
+
+              <div className="text-right ">
+                <h3 className="text-2xl font-semibold text-[#430750]">{profile?.data?.attributes?.fullName}</h3>
+                <p className="font-semibold">{profile?.data?.attributes?.role}</p>
+              </div>
+              <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.profileImage ? `${baseUrl}${profile?.data?.attributes?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
+            </Link>
+        }
+
       </div>
 
     </div>

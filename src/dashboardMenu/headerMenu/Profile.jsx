@@ -4,13 +4,17 @@ import { FaEdit } from "react-icons/fa";
 import user from "./../../../public/image/users.jpg";
 import { useGetProfileQuery } from "../../redux/features/profile/profile";
 import url from "../../redux/api/baseUrl";
+import { useEffect } from "react";
 
 const Profile = () => {
   const navigate = useNavigate();
 
-  const { data: profile, isLoading } = useGetProfileQuery();
+  const { data: profile, isLoading, refetch } = useGetProfileQuery();
   console.log(profile?.data?.attributes);
 
+  useEffect(() => {
+    refetch();
+  }, [])
   const imageUrl = url;
 
   return (

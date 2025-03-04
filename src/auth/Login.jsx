@@ -26,7 +26,7 @@ const Login = () => {
         toast.success(res?.message);
         localStorage.setItem("token", res?.data?.attributes?.tokens?.access?.token);
         localStorage.setItem("user", JSON.stringify(res?.data));
-        setTimeout(() => navigate("/dashboard/home"), 500);
+        navigate("/dashboard/home")
       } else {
         setError("Invalid login credentials");
       }
