@@ -6,7 +6,8 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     // baseUrl: "https://api.guidegadget.com/api/v1",
-    baseUrl: "https://api.ndolomeet.com/api/v1",
+    baseUrl: "http://api.ndolomeet.com/api/v1",
+    // baseUrl: "http://api.ndolomeet.com/api/v1",
     prepareHeaders: (headers, { getState }) => {
       const token = localStorage.getItem("token");
       // console.log("9 baseApi", token);
