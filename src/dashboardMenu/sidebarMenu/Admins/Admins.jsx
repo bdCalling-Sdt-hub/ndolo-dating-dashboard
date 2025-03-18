@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DatePicker, Modal, Table, Tooltip, Input, Form, Button } from "antd";
+import { DatePicker, Modal, Table, Tooltip, Input, Form, Button, Select } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { IoSearchOutline } from "react-icons/io5";
 import moment from "moment"; // To handle date comparison
@@ -19,7 +19,7 @@ const Admins = () => {
     const [selectedDate, setSelectedDate] = useState(null); // Selected date for filtering
 
 
-    const { data: adminData, isLoading, error } = useAllAdminsQuery({ });
+    const { data: adminData, isLoading, error } = useAllAdminsQuery({});
     console.log(adminData?.data?.attributes?.results);
     const allAdminInfo = adminData?.data?.attributes?.results;
 
@@ -173,6 +173,8 @@ const Admins = () => {
 
     const addAdminModalSubmit = async (values) => {
 
+        console.log(values);
+
         try {
             const res = await adminAdd(values).unwrap()
             console.log(res);
@@ -187,7 +189,7 @@ const Admins = () => {
         }
         closeAddAdminModal()
 
-        // closeAddAdminModal(); // Close the modal after adding
+        closeAddAdminModal(); // Close the modal after adding
     }
 
 
@@ -334,36 +336,6 @@ const Admins = () => {
                         layout="vertical"
                         onFinish={addAdminModalSubmit}
                     >
-                        <Form.Item
-                            label="First Name"
-                            name="firstName"
-                            rules={[{ required: true, message: "Please input the first name!" }]}
-                        >
-                            <Input type='text' placeholder="Enter first name" />
-                        </Form.Item>
-                        <Form.Item
-                            label="Last Name"
-                            name="lastName"
-                            rules={[{ required: true, message: "Please input the last name!" }]}
-                        >
-                            <Input type='text' placeholder="Enter last name" />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Address"
-                            name="address"
-                            rules={[{ required: true, message: "Please input the last name!" }]}
-                        >
-                            <Input type='text' placeholder="Enter last name" />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Phone Number"
-                            name="phoneNumber"
-                            rules={[{ required: true, message: "Please input the phone number!" }]}
-                        >
-                            <Input placeholder="Enter phone number" />
-                        </Form.Item>
 
                         <Form.Item
                             label="Email"
@@ -373,13 +345,22 @@ const Admins = () => {
                             <Input type='email' placeholder="Enter email" />
                         </Form.Item>
 
+                        {/* deropdown with : member / team  */}
+
                         <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[{ required: true, message: "Please input the password!" }]}
+                            label="access"
+                            name="access"
+                            rules={[{ required: true, message: "Please select a role!" }]}
                         >
-                            <Input type='password' placeholder="Enter password" />
+                            <Select
+                                placeholder="Select a role"
+                                options={[
+                                    { value: "team", label: "Team" },
+                                    { value: "member", label: "Member" },
+                                ]}
+                            />
                         </Form.Item>
+
 
                         {/* <div className='flex gap-5 my-5'>
                             <label htmlFor="superAdmin">

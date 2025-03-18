@@ -19,8 +19,9 @@ const Login = () => {
     console.log("Form Data:", { email, password }); // ✅ Console log form data
 
     try {
-      const res = await adminLogin({ email, password }).unwrap();
+      const res = await adminLogin({ email, password, loginType: 1 }).unwrap();
       console.log(res);
+
       if (res?.code === 200) {
         console.log(res?.data?.tokens);
         toast.success(res?.message);
@@ -31,6 +32,7 @@ const Login = () => {
         setError("Invalid login credentials");
       }
     } catch (err) {
+      console.log(err);
       setError(err?.data?.message || "Login failed. Please try again.");
     }
   };
