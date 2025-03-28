@@ -16,7 +16,9 @@ const Login = () => {
   // Handle Form Submission
   const onSubmit = async (e) => {
     e.preventDefault(); // Prevent default form refresh
-    console.log("Form Data:", { email, password }); // ✅ Console log form data
+    console.log("Form Data:", { email, password }); 
+    
+    // ✅ Console log form data
 
     try {
       const res = await adminLogin({ email, password, loginType: 1 }).unwrap();
