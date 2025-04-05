@@ -18,6 +18,8 @@ import AboutUs from "../dashboardMenu/sidebarMenu/settings/AboutUs/AboutUs";
 import EditAboutUs from "../dashboardMenu/sidebarMenu/settings/AboutUs/EditAboutUs";
 import Admins from "../dashboardMenu/sidebarMenu/Admins/Admins";
 import Adminchangepassword from "../dashboardMenu/sidebarMenu/Adminchangepassword/Adminchangepassword";
+import Matches from "../dashboardMenu/sidebarMenu/Matches";
+import Interest from "../dashboardMenu/sidebarMenu/Interest";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +67,28 @@ export const router = createBrowserRouter([
         path: "admins",
         element: <Admins />,
       },
+      {
+        path: "matches",
+        element: <Matches />,
+      },
+
+
+      {
+        path: "interest",
+        element: <Interest />,
+      },
+
+
+
+
+
+
+
+
+
+
+
+
       {
         path: "adminchangepassword",
         element: <Adminchangepassword />,
