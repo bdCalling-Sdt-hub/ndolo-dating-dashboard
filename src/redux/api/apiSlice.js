@@ -7,7 +7,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     // baseUrl: "https://api.guidegadget.com/api/v1",
     // baseUrl: "http://api.ndolomeet.com/api/v1",
-    baseUrl: "http://10.0.60.206:9090/api/v1",
+    baseUrl: "https://api.ndolomeet.com/api/v1",
     prepareHeaders: (headers, { getState }) => {
       const token = localStorage.getItem("token");
       // console.log("9 baseApi", token);
@@ -18,6 +18,6 @@ export const apiSlice = createApi({
     },
   }),
 
-  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest", "Matches" , "Interest"],
+  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest", "Matches", "Interest"],
   endpoints: () => ({}),
 });
