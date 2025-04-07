@@ -30,7 +30,7 @@ const Matches = () => {
             title: 'Icon',
             dataIndex: 'icon',
             key: 'icon',
-            render: (src) => <div className='w-10 bg-black p-1'>
+            render: (src) => <div className='w-10   p-1'>
                 <img src={url + src} alt="icon" className="w-10 h-10 object-contain" />
             </div>,
         },
