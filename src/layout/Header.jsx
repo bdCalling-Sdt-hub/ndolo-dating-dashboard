@@ -151,7 +151,7 @@ const Header = () => {
                 <h3 className="text-2xl font-semibold text-[#430750]">{profile?.data?.attributes?.fullName}</h3>
                 <p className="font-semibold">{profile?.data?.attributes?.role}</p>
               </div>
-              <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.profileImage ? `${baseUrl}${profile?.data?.attributes?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
+              <img className="w-14 h-14 rounded-full object-cover" src={profile?.data?.attributes?.profileImage ? `${baseUrl}${profile?.data?.attributes?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
             </Link>
         }
 
