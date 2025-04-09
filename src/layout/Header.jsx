@@ -141,7 +141,7 @@ const Header = () => {
           </div>
           {/* <div className="sm:block hidden">
             <img className="max-w-48 mx-auto" src={dashboard_welcome_Image} alt="" />
-          </div> */}
+          </div> */} 
         </div>
         {
           profileLoading ? <div className="flex items-center mr-5 text-blue-500">loading...</div> :
