@@ -5,7 +5,7 @@ const interest = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getInterest: builder.query({
             query: () => '/interests/all?sortBy=createdAt:desc',
-            providesTags: ['Matches']
+            providesTags: ['Interest']
         }),
         addInterest: builder.mutation({
             query: (data) => ({

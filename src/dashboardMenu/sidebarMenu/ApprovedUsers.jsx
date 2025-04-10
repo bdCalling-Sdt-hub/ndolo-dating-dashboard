@@ -27,6 +27,7 @@ const ApprovedUsers = () => {
   const user = userData?.data?.attributes?.results;
   const [deleteuser, { isLoading: deleteLoading }] = useDeleteUserMutation();
 
+ 
   // if (deleteLoading) {
   //   message.loading("Deleting User...")
   // }
@@ -225,15 +226,17 @@ const ApprovedUsers = () => {
           pagination={{
             current: currentPage,
             pageSize: pageSize,
+            
             onChange: (page, pageSize) => {
               setCurrentPage(page);
               setPageSize(pageSize);
             },
-            total: filteredData?.length,
+            total: userData?.data?.attributes?.totalResults ,
             showSizeChanger: true,
             position: ["bottomCenter"], // Center the pagination
             className: "custom-pagination", // Add a custom class for styling
           }}
+          loading={isLoading}
           rowKey="id"
           bordered
           style={{

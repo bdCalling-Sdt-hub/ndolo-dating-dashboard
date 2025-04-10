@@ -16,7 +16,7 @@ const RecentUser = ({ state }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // Store selected user details
   const [currentPage, setCurrentPage] = useState(1); // Pagination state
-  const [pageSize, setPageSize] = useState(5); // Rows per page
+  const [pageSize, setPageSize] = useState(10); // Rows per page
   const [searchQuery, setSearchQuery] = useState(""); // Search query state
   const [selectedDate, setSelectedDate] = useState(null); // Selected date for filtering
 
@@ -26,13 +26,13 @@ const RecentUser = ({ state }) => {
 
   const { data: userData, isLoading, error } = useAllUsersDisQuery({})
   const user = userData?.data?.attributes?.results;
-  // const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
+  const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
 
-  // const last7DaysUsers = user?.filter((u) =>
-  //   moment(u?.createdAt).isSameOrAfter(last7Days, "day")
-  // );
+  const last7DaysUsers = user?.filter((u) =>
+    moment(u?.createdAt).isSameOrAfter(last7Days, "day")
+  );
 
-  // console.log(last7DaysUsers?.length);
+  console.log(last7DaysUsers?.length);
 
 
 
@@ -170,7 +170,7 @@ const RecentUser = ({ state }) => {
     </div>
   }
   // Filtered data based on search query and selected date
-  const filteredData = user?.filter((item) => {
+  const filteredData = last7DaysUsers?.filter((item) => {
     const matchesSearchQuery =
       item.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.email.toLowerCase().includes(searchQuery.toLowerCase());
@@ -236,7 +236,7 @@ const RecentUser = ({ state }) => {
               setCurrentPage(page);
               setPageSize(pageSize);
             },
-            total: filteredData?.length,
+            total: last7DaysUsers?.length,
             showSizeChanger: true,
             position: ["bottomCenter"], // Center the pagination
             className: "custom-pagination", // Add a custom class for styling
