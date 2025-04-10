@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { TbAlertTriangle } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { FiAlertTriangle } from "react-icons/fi";
-import { useAllUsersQuery, useBlockUserMutation } from "../redux/features/users/users";
+import { useAllUsersDisQuery, useAllUsersQuery, useBlockUserMutation } from "../redux/features/users/users";
 import { useDeleteUserMutation } from "../redux/features/users/deleteUser";
 
 
@@ -24,15 +24,15 @@ const RecentUser = ({ state }) => {
   const [deleteuser, { isLoading: deleteLoading }] = useDeleteUserMutation();
 
 
-  const { data: userData, isLoading, error } = useAllUsersQuery({})
+  const { data: userData, isLoading, error } = useAllUsersDisQuery({})
   const user = userData?.data?.attributes?.results;
-  const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
+  // const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
 
-  const last7DaysUsers = user?.filter((u) =>
-    moment(u?.createdAt).isSameOrAfter(last7Days, "day")
-  );
+  // const last7DaysUsers = user?.filter((u) =>
+  //   moment(u?.createdAt).isSameOrAfter(last7Days, "day")
+  // );
 
-  console.log(last7DaysUsers?.length);
+  // console.log(last7DaysUsers?.length);
 
 
 
@@ -170,7 +170,7 @@ const RecentUser = ({ state }) => {
     </div>
   }
   // Filtered data based on search query and selected date
-  const filteredData = last7DaysUsers?.filter((item) => {
+  const filteredData = user?.filter((item) => {
     const matchesSearchQuery =
       item.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.email.toLowerCase().includes(searchQuery.toLowerCase());

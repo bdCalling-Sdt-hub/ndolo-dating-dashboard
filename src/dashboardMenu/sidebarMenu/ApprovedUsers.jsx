@@ -16,11 +16,13 @@ const ApprovedUsers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // Store selected user details
   const [currentPage, setCurrentPage] = useState(1); // Pagination state
-  const [pageSize, setPageSize] = useState(5); // Rows per page
+  const [pageSize, setPageSize] = useState(10); // Rows per page
   const [searchQuery, setSearchQuery] = useState(""); // Search query state
   const [selectedDate, setSelectedDate] = useState(null); // Selected date for filtering
 
-  const { data: userData, isLoading, error } = useAllUsersQuery({})
+  console.log(pageSize, currentPage);
+
+  const { data: userData, isLoading, error } = useAllUsersQuery({ page: currentPage, limit: pageSize });
   const [blockUser] = useBlockUserMutation();
   const user = userData?.data?.attributes?.results;
   const [deleteuser, { isLoading: deleteLoading }] = useDeleteUserMutation();

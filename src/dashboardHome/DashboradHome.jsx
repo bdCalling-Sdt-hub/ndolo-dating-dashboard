@@ -3,25 +3,18 @@ import Card from "./Card";
 import Barchart from "./Barchart";
 import RecentUser from "./RecentUser";
 import Patient from "../../public/Dashboard/Patient.png";
-import { useAllUsersQuery } from "../redux/features/users/users";
+import { useAllUsersDisQuery, useAllUsersQuery } from "../redux/features/users/users";
 import { useAllDashboardInfoQuery } from "../redux/features/admin/getDashboardInfo";
 import moment from "moment";
 
 const DashboardHome = () => {
-  const { data: userData, isLoading, error } = useAllUsersQuery({})
+  const { data: userData, isLoading, error } = useAllUsersDisQuery({})
   const user = userData?.data?.attributes?.results;
-  const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
 
-  const last7DaysUsers = user?.filter((u) =>
-    moment(u?.createdAt).isSameOrAfter(last7Days, "day")
-  );
-
-  console.log(last7DaysUsers?.length);
 
   const { data: allDashboardInfo, isLoading: dashboardLoading } = useAllDashboardInfoQuery();
 
-  console.log(allDashboardInfo?.data?.attributes?.totalAdmin);
-  console.log(allDashboardInfo?.data?.attributes?.totalUser);
+
 
   const totalAdmin = allDashboardInfo?.data?.attributes?.totalAdmin;
   const totalUser = allDashboardInfo?.data?.attributes?.totalUser;
@@ -64,7 +57,7 @@ const DashboardHome = () => {
             <h2 className="text-xl sm:text-2xl font-semibold text-[#1a1a1a]">
               Recent User <sup className="text-sm">( Last 7 days )</sup>
             </h2>
-            <h2 className="text-3xl font-medium text-[#430750]">{last7DaysUsers?.length} </h2>
+            <h2 className="text-3xl font-medium text-[#430750]">{user?.length} </h2>
           </div>
         </div>
       </div>
