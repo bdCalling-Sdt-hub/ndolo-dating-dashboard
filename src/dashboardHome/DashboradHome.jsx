@@ -45,7 +45,7 @@ const DashboardHome = () => {
               Total Admins
             </h2>
             <h2 className="text-3xl font-medium text-[#430750]">
-              {totalAdmin ? totalAdmin : "00"}
+              {totalAdmin ? totalAdmin : "0"}
             </h2>
           </div>
         </div>
