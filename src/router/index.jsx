@@ -20,6 +20,8 @@ import Admins from "../dashboardMenu/sidebarMenu/Admins/Admins";
 import Adminchangepassword from "../dashboardMenu/sidebarMenu/Adminchangepassword/Adminchangepassword";
 import Matches from "../dashboardMenu/sidebarMenu/Matches";
 import Interest from "../dashboardMenu/sidebarMenu/Interest";
+import ChildSafteyPolicy from "../dashboardMenu/sidebarMenu/settings/ChildSafteyPolicy/ChildSafteyPolicy";
+import EditChildSafteyPolicy from "../dashboardMenu/sidebarMenu/settings/ChildSafteyPolicy/EditChildSafteyPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -122,6 +124,18 @@ export const router = createBrowserRouter([
         path: "settings/editaboutus",
         element: <EditAboutUs />,
       },
+
+      {
+        path: "settings/child-safety-policy",
+        element: <ChildSafteyPolicy />,
+      },
+      {
+        path: "settings/edit-child-safety-policy",
+        element: <EditChildSafteyPolicy />,
+      },
+
+
+
     ],
   },
 ]);

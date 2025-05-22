@@ -451,6 +451,21 @@ const Settings = () => {
         </div>
 
         <div
+          onClick={() => navigate("/dashboard/settings/child-safety-policy")}
+          className="mt-8 pl-4 cursor-pointer flex justify-between bg-[#F7F7F7] hover:bg-[#430750] hover:text-white rounded items-center w-full h-[75px]"
+        >
+          <p className="text-[18px] ml-8 font-medium text-center">
+            Child Safety Policy
+          </p>
+          <Link
+            to="/dashboard/settings/child-safety-policy"
+            className="mr-8 px-2 py-1 rounded cursor-pointer"
+          >
+            <IoIosArrowForward />
+          </Link>
+        </div>
+
+        <div
           onClick={() => navigate("/dashboard/settings/aboutus")}
           className="mt-8 pl-4 cursor-pointer flex justify-between bg-[#F7F7F7] hover:bg-[#430750] hover:text-white rounded items-center w-full h-[75px]"
         >

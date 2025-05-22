@@ -1,57 +1,37 @@
 import { useEffect, useRef, useState } from "react";
-// import toast, { Toaster } from "react-hot-toast";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useGetTermConditionQuery } from "../../../../redux/features/settings/getTermCondition";
-import { useUpdateTermconditionMutation } from "../../../../redux/features/settings/updateTermcondition";
+import { useGetAboutQuery } from "../../../../redux/features/settings/getAbout";
+import { useUpdateAboutMutation } from "../../../../redux/features/settings/updateAbout";
 import { FaCircleArrowLeft } from "react-icons/fa6";
 import { Button, Form } from "antd";
 import JoditEditor from "jodit-react";
-import { useUpdateAboutMutation } from "../../../../redux/features/settings/updateAbout";
-import { useGetAboutQuery } from "../../../../redux/features/settings/getAbout";
 
 export default function EditAboutUs() {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("id");
-  // console.log(id);
-
-  const { data: termsConditon } = useGetAboutQuery();
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
   const navigate = useNavigate();
-  const [updateTermcondition, { isLoading }] = useUpdateAboutMutation();
-  // console.log(content);
+  const editor = useRef(null);
+  const { data: aboutData } = useGetAboutQuery();
+  const [updateAbout, { isLoading }] = useUpdateAboutMutation();
+
+  const [content, setContent] = useState("");
 
   useEffect(() => {
-    if (termsConditon) {
-      setContent(termsConditon?.data?.attributes[0]?.content);
+    if (aboutData) {
+      setContent(aboutData?.data?.attributes[0]?.content || "");
     }
-  }, [termsConditon]);
+  }, [aboutData]);
 
-  const dataContent = {
-    content: content,
-  };
-
-  const handleEditTermCondition = async () => {
-    // console.log(dataContent);
-    // navigate("/dashboard/settings/termcondition")
-
+  const handleEditAbout = async () => {
     try {
-      const res = await updateTermcondition(dataContent).unwrap();
-      // console.log(res);
-
-
-      toast.success(res?.message);
+      const res = await updateAbout({ content }).unwrap();
+      toast.success(res?.message || "Updated successfully!");
       setTimeout(() => {
         navigate("/dashboard/settings/aboutus");
       }, 1000);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Failed to update About Us.");
     }
-  };
-  const stripHtmlTags = (html) => {
-    return html.replace(/<[^>]*>?/gm, ""); // Removes all HTML tags
   };
 
   return (
@@ -68,40 +48,32 @@ export default function EditAboutUs() {
         pauseOnHover
         theme="colored"
       />
-      <Link
-        to="/dashboard/settings/aboutus"
-        className="flex items-center gap-2"
-      >
-        <FaCircleArrowLeft className=" !text-[#430750] w-8 h-8" />
-        <p className=" font-semibold sm:text-[30px] text-xl">Edit About Us</p>
+      <Link to="/dashboard/settings/aboutus" className="flex items-center gap-2">
+        <FaCircleArrowLeft className="!text-[#430750] w-8 h-8" />
+        <p className="font-semibold sm:text-[30px] text-xl">Edit About Us</p>
       </Link>
 
       <Form
         labelCol={{ span: 22 }}
         wrapperCol={{ span: 40 }}
         layout="vertical"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={handleEditTermCondition}
+        onFinish={handleEditAbout}
       >
         <div className="mt-6">
           <JoditEditor
             ref={editor}
-            value={termsConditon?.data?.attributes[0]?.content}
-            onBlur={(newContent) => {
-              const plainText = stripHtmlTags(newContent); // Strips HTML tags
-              setContent(plainText); // Sets only the plain text to content
-            }}
-            onChange={() => { }}
+            value={content}
+            onChange={newContent => setContent(newContent)}
           />
         </div>
+
         <div className="text-right mt-6">
           <Form.Item>
             <Button
               loading={isLoading}
               htmlType="submit"
-              className=" h-[44px] w-full sm:w-[260px] !text-white !bg-[#430750] rounded-[8px]"
+              className="h-[44px] w-full sm:w-[260px] !text-white !bg-[#430750] rounded-[8px]"
+              disabled={content.trim() === ""}
             >
               Save Change
             </Button>

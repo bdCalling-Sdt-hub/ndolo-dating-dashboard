@@ -18,6 +18,6 @@ export const apiSlice = createApi({
     },
   }),
 
-  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest", "Matches", "Interest"],
+  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest", "Matches", "Interest", "ChildSafety"],
   endpoints: () => ({}),
 });
